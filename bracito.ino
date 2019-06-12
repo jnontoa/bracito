@@ -1,54 +1,65 @@
 //programa creado por juan jose nontoa posada y juan jose plata perez. 
 //codigo para mover los servomotores del brazo robotico.
-
-#include <Servo.h>
-
-#define pinHombro 13//declaro cada pin de los servomotores
-#define pinCodo 12
-#define pinPinzas 10
-#define pinBase 9
-
-Servo motorHombro;//declaro los motores
-Servo motorCodo;
-Servo motorPinzas;
-Servo motorBase;
-
-void setup() 
-{
-   motorHombro.attach(13);
-   motorCodo.attach(12);
-   motorPinzas.attach(10);
-   motorBase.attach(9);
-   Serial.begin(9600);   
+#include<Servo.h>
+#define pinBase 12 //Defino el pin del motor base
+Servo motorBase; //Declaro el motor de la base
+#define pinDerecho 11 //Defino el pin del motor derecho
+Servo motorDerecho;
+#define pinIzquierdo 10
+Servo motorIzquierdo;
+#define pinMano 9
+Servo motorMano;
+void setup() {
+  Serial.begin (9600);
+  motorBase.attach(pinBase);
+  motorDerecho.attach(pinDerecho);
+  motorIzquierdo.attach(pinIzquierdo);
+  motorMano.attach(pinMano);
+  
 }
 
-void loop() 
-{
-   motorBase.write(0);//leer cada servo y que se muevan en una direccion
-   delay(1000);
-   motorBase.write(90);
-   delay(1000);
-   
-   motorCodo.write(0);
-   delay(1000);
-   motorCodo.write(90);
-   delay(1000);
+void loop() {
+  
+    motorBase.write(10);
+    motorDerecho.write(10);
+    motorIzquierdo.write(90);
+    motorMano.write(60);
 
-   motorHombro.write(0);
-   delay(1000);
-   motorHombro.write(90);
-   delay(1000);
-   
-   motorPinzas.write(0);//saludo con las pinzas
-   delay(1000);
-   motorPinzas.write(90);
-   delay(1000);
-   motorPinzas.write(165);
-   delay(1000);
-   motorPinzas.write(90);
-   delay(1000);
-   motorPinzas.write(0);
-   delay(1000);
-   motorPinzas.write(90);
-   delay(1000);
+    delay(2000);// Espera 2 seg
+ 
+
+
+  motorBase.write(50);
+  motorDerecho.write(30);
+  motorIzquierdo.write(50);
+  motorMano.write(70);
+  
+  delay(2000);
+
+
+  motorBase.write(90);
+  motorDerecho.write(90);
+  motorIzquierdo.write(70);
+  motorMano.write(80);
+  
+  delay(2000);// Espera 2 seg
+
+
+
+    motorBase.write(130);
+    motorDerecho.write(70);
+    motorIzquierdo.write(10);
+    motorMano.write(90);
+    
+    delay(2000);// Espera 2 seg
+
+
+  motorBase.write(170);
+  motorDerecho.write(50);
+  motorIzquierdo.write(30);
+  motorMano.write(100);
+  
+  delay(2000);
+
+
 }
