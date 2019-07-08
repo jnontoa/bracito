@@ -1,6 +1,7 @@
 //programa creado por juan jose nontoa posada y juan jose plata perez. 
-//codigo para mover los servomotores del brazo robotico.
-#include<Servo.h>
+//codigo para mover el robot con las teclas del computaor
+
+#include <Servo.h>
 #define pinBase 12 //Defino el pin del motor base
 Servo motorBase; //Declaro el motor de la base
 #define pinDerecho 11 //Defino el pin del motor derecho
@@ -9,57 +10,87 @@ Servo motorDerecho;
 Servo motorIzquierdo;
 #define pinMano 9
 Servo motorMano;
-void setup() {
-  Serial.begin (9600);
-  motorBase.attach(pinBase);
-  motorDerecho.attach(pinDerecho);
-  motorIzquierdo.attach(pinIzquierdo);
-  motorMano.attach(pinMano);
-  
+#include<SoftwareSerial.h>
+#define rxPin 2
+SoftwareSerial BT(2,3);
+
+
+void setup() 
+{
+ Serial.begin(9600);
+ motorBase.attach(pinBase);
+ motorDerecho.attach(pinDerecho);
+ motorIzquierdo.attach(pinIzquierdo);
+ motorMano.attach(pinMano);
+ BT.begin(9600);
 }
+int i,j,k;
+char s[6];
 
-void loop() {
-  
-    motorBase.write(10);
-    motorDerecho.write(10);
-    motorIzquierdo.write(90);
-    motorMano.write(60);
-
-    delay(2000);// Espera 2 seg
- 
-
-
-  motorBase.write(50);
-  motorDerecho.write(30);
-  motorIzquierdo.write(50);
-  motorMano.write(70);
-  
-  delay(2000);
-
-
-  motorBase.write(90);
-  motorDerecho.write(90);
-  motorIzquierdo.write(70);
-  motorMano.write(80);
-  
-  delay(2000);// Espera 2 seg
-
-
-
-    motorBase.write(130);
-    motorDerecho.write(70);
-    motorIzquierdo.write(10);
-    motorMano.write(90);
+void loop() 
+{ if(BT.available()>0&&BT.available()<=6)
+  {
+    BT.readBytes(s,6);
+    BT.println(s);
+   switch(s[0])
+  { 
+    case 'b': i=(s[1]-48)*100;
+    j=(s[2]-48)*10;
+    k= i+j+(s[3]-48);
+    motorBase.write(k); 
+    break; 
     
-    delay(2000);// Espera 2 seg
+    case 'd': i=(s[1]-48)*100;
+    j=(s[2]-48)*10;
+    k= i+j+(s[3]-48);
+    motorDerecho.write(k); 
+    break; 
 
+    case 'i': i=(s[1]-48)*100;
+    j=(s[2]-48)*10;
+    k= i+j+(s[3]-48);
+    motorIzquierdo.write(k); 
+    break; 
 
-  motorBase.write(170);
-  motorDerecho.write(50);
-  motorIzquierdo.write(30);
-  motorMano.write(100);
+    case 'm': i=(s[1]-48)*100;
+    j=(s[2]-48)*10;
+    k= i+j+(s[3]-48);
+    motorMano.write(k); 
+    break; 
+  }
+
+  if(Serial.available()>0&&Serial.available()<=6)
+  {
+    Serial.readBytes(s,6);
+    Serial.println(s);
   
-  delay(2000);
+  switch(s[0])
+  { 
+    case 'b': i=(s[1]-48)*100;
+    j=(s[2]-48)*10;
+    k= i+j+(s[3]-48);
+    motorBase.write(k); 
+    break; 
+    
+    case 'd': i=(s[1]-48)*100;
+    j=(s[2]-48)*10;
+    k= i+j+(s[3]-48);
+    motorDerecho.write(k); 
+    break; 
 
+    case 'i': i=(s[1]-48)*100;
+    j=(s[2]-48)*10;
+    k= i+j+(s[3]-48);
+    motorIzquierdo.write(k); 
+    break; 
 
+    case 'm': i=(s[1]-48)*100;
+    j=(s[2]-48)*10;
+    k= i+j+(s[3]-48);
+    motorMano.write(k); 
+    break; 
+  }
+  }
 }
+}
+    
