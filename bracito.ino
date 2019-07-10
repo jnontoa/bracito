@@ -1,18 +1,18 @@
 //programa creado por juan jose nontoa posada y juan jose plata perez. 
 //codigo para mover el robot con las teclas del computaor
-
 #include <Servo.h>
 #define pinBase 12 //Defino el pin del motor base
 Servo motorBase; //Declaro el motor de la base
 #define pinDerecho 11 //Defino el pin del motor derecho
 Servo motorDerecho;
-#define pinIzquierdo 10
+#define pinIzquierdo 7
 Servo motorIzquierdo;
 #define pinMano 9
 Servo motorMano;
 #include<SoftwareSerial.h>
-#define rxPin 2
-SoftwareSerial BT(2,3);
+#define TxBluetooth 3
+#define RxBluetooth 2
+SoftwareSerial BT(RxBluetooth,TxBluetooth);
 
 
 void setup() 
@@ -23,6 +23,13 @@ void setup()
  motorIzquierdo.attach(pinIzquierdo);
  motorMano.attach(pinMano);
  BT.begin(9600);
+
+ 
+    motorBase.write(10);
+    motorDerecho.write(10);
+    motorIzquierdo.write(90);
+    motorMano.write(60);
+
 }
 int i,j,k;
 char s[6];
@@ -93,4 +100,3 @@ void loop()
   }
 }
 }
-    
